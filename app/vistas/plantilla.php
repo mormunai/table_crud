@@ -8,7 +8,7 @@
         <meta name="Origen" content="Qu�en lo ha hecho" /> 
         <meta name="Author" content="nombre del autor" /> 
         <meta name="Locality" content="Madrid, Espa�a" /> 
-        <meta name="Lang" content="<?php echo \core\Idioma::get(); ?>" /> 
+        <meta name="Lang" content="es" /> 
         <meta name="Viewport" content="maximum-scale=10.0" /> 
         <meta name="revisit-after" content="1 days" /> 
         <meta name="robots" content="INDEX,FOLLOW,NOODP" /> 
@@ -24,8 +24,8 @@
             /* Definiciones hoja de estilos interna */
         </style>
 
-        <script type="text/javascript" src="<?php echo URL_ROOT; ?>recursos/js/idiomas.js"></script>
-        <script type="text/javascript" src="<?php echo URL_ROOT; ?>recursos/js/f_cookies_v06.js"></script>
+<!--        <script type="text/javascript" src="<?php echo URL_ROOT; ?>recursos/js/idiomas.js"></script>
+        <script type="text/javascript" src="<?php echo URL_ROOT; ?>recursos/js/f_cookies_v06.js"></script>-->
 
     </head>
 
@@ -36,39 +36,17 @@
         <div id="cabecera" class="transparente">
             <table id="tabla_cabecera">
                 <tr>
-                    <td id="td_titulo_tabla_cabecera">
-                        <h1 id="titulo_cabecera">
-                            <?php
-                            if (\core\Distribuidor::get_controlador_instanciado() == "inicio")
-                                echo \core\Idioma::text("plantilla_titulo_cabecera", "plantilla");
-                            else
-                                echo \core\Idioma::text("plantilla_titulo_cabecera_libros", "plantilla");
-                            ?>
+                    <td id="td_inicio_tabla_cabecera">
+                        <h1 class="titulo_cabecera">
+                            <a id="enlace_cabecera_inicio" href="<?php echo \core\URL::generar_sin_idioma("inicio/index"); ?>" 
+                               class="enlace_cabecera, titulo_cabecera">Inicio</a>
                         </h1>
                     </td>                    
-                    <td id="td_idiomas_tabla_cabecera">
-                        <table id="tabla_idiomas">
-                            <tr>
-                                <td id="td_es_tabla_cabecera" class="td_lang_tabla_cabecera">
-                                    <a onclick='set_lang("es", "<?php echo \core\URL::generar_sin_idioma("inicio/index"); ?>");'
-                                       id="a_idioma_es" class="enlace_idioma">
-                                        <img src='<?php echo \core\URL::generar_sin_idioma("recursos/imagenes/generales"); ?>flag_es.png'
-                                             class="icono_idioma"/>
-                                        <?php echo \core\Idioma::text("plantilla_español", "plantilla"); ?>
-                                    </a>                                    
-                                </td>                                    
-                            </tr>
-                            <tr>
-                                <td id="td_en_tabla_cabecera" class="td_lang_tabla_cabecera">
-                                    <a onclick='set_lang("en", "<?php echo \core\URL::generar_sin_idioma("en/inicio/index"); ?>");'
-                                       id="a_idioma_en" class="enlace_idioma">
-                                        <img src='<?php echo \core\URL::generar_sin_idioma("recursos/imagenes/generales"); ?>flag_gb.png' 
-                                             class="icono_idioma"/>
-                                        <?php echo \core\Idioma::text("plantilla_ingles", "plantilla"); ?>
-                                    </a>
-                                </td>
-                            </tr>
-                        </table>
+                    <td id="td_libros_tabla_cabecera">
+                        <h1 class="titulo_cabecera">
+                            <a id="enlace_cabecera_libros" href="<?php echo \core\URL::generar_sin_idioma("libros/index"); ?>" 
+                               class="enlace_cabecera, titulo_cabecera">Libros</a>
+                        </h1>
                     </td>
                 </tr>
             </table>
@@ -85,23 +63,23 @@
         <!-- Pie de página -->
         <div id="pie_pagina" class="transparente">
             <p id="info_pie">
-                <?php echo \core\Idioma::text("plantilla_creada", "plantilla"); ?> <span class="cursiva">Aída Morillas Muñoz</span>
+                Página creada por: <span class="cursiva"> Aída Morillas Muñoz</span>
                 <br/><br/>
-                <?php echo \core\Idioma::text("plantilla_contacto", "plantilla"); ?> 
+                Contacto: 
                 <a href="mailto:aida.morillas.92@gmail.com" id="enlace_contacto" class="enlace_pie">
                     <img class='icono' src='<?php echo URL_ROOT; ?>recursos/imagenes/generales/message.png' title='e-mail' alt="e-mail">                    
                 </a>
                 <br/><br/>
-                ::: <?php echo \core\Idioma::text("plantilla_info", "plantilla"); ?> 19/12/2013 :::
+                ::: Esta página es una práctica para el módulo de DWES - 06/02/2014 :::
                 <br/>
                 <br/>
                 <?php
                 if (\core\Distribuidor::get_controlador_instanciado() != "inicio") {
                     echo '
                         <button id="boton_volver_principal" onclick="window.location.assign(\''.\core\URL::generar_sin_idioma("inicio").'\');"                        
-                            title="'.\core\Idioma::text("plantilla_volver", "plantilla").'">
+                            title="Volver a inicio">
                             <img src="'.URL_ROOT.'recursos/imagenes/generales/home.png" 
-                                alt="'.\core\Idioma::text("plantilla_volver", "plantilla").'">                                    
+                                alt="Volver al inicio">                                    
                         </button> 
                     ';
                 }

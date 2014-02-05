@@ -41,7 +41,7 @@ class Aplicacion extends \core\Clase_Base {
 		
 		
 		// Estudio del idioma, después de que la url amigable se pase a parámetros GET
-		\core\Idioma::init();
+//		\core\Idioma::init();
 		
 		// Distribuidor
 		\core\Distribuidor::estudiar_query_string();

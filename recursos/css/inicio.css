@@ -15,7 +15,7 @@ body {
     padding: 0.01%;
     text-align: center;
 }
-#titulo_cabecera {				
+.titulo_cabecera {				
     text-align: center;
     font-family: Forte;
     font-size: 54px;
@@ -23,17 +23,17 @@ body {
     text-shadow: 3px 3px rgb(255, 255, 255);
     font-variant: small-caps;
     text-transform: capitalize;
-    padding-left: 17%;
+    text-decoration: none;
 }
 #tabla_cabecera {
     width: 100%;
 }
-#td_titulo_tabla_cabecera {
-    width: 87%;
+
+#tabla_cabecera tr td {
+    width: 1%;
 }
-.td_lang_tabla_cabecera {
-    text-align: left;
-    color: white;
+.enlace_cabecera:hover {
+    cursor: pointer;
 }
 
     /* Apartado de los idiomas */
@@ -105,6 +105,8 @@ body {
         width: 1%;
         color: white;
         text-align: center;
+        padding-right: 5px;
+        padding-left: 5px;
     }
     #tr_head {
         width: 1%;
@@ -120,7 +122,7 @@ body {
     }
     .tr_impar {
         background-color: rgba(0, 0, 0, 0.60);
-        height: 85px;
+        height: 90px;
     }
     .icono_tabla {
         vertical-align: middle;    

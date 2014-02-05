@@ -241,7 +241,7 @@ class Validaciones  {
 		$mensaje = null; // Ningún error de validación
 		
 		if ( $cadena == null || strlen($cadena) < 1) {
-			$mensaje = \core\Idioma::text("validacion_error_requerido", "plantilla");
+			$mensaje = 'Esta entrada es obligatoria, no puede quedarse vacía.';
 		}
 		
 		return $mensaje;
@@ -257,7 +257,7 @@ class Validaciones  {
 	public static function errores_texto($cadena=null) {
 		$mensaje = null;
 		if ($cadena != null && ! strlen($cadena)) {
-				$mensaje = "-php- ".\core\Idioma::text("validacion_error_texto", "plantilla");
+				$mensaje = "Debe ser una cadena con un carácter como mínimo.";
 		}
 		return $mensaje;
 	}
@@ -269,7 +269,7 @@ class Validaciones  {
 		if ($cadena != null && strlen($cadena)) {
 				$patron = "/\;/";
 				if (preg_match($patron, $cadena)) {
-					$mensaje = \core\Idioma::text("validacion_error_punto_y_coma", "plantilla");
+					$mensaje = "No se puede utilizar el ';'.";
 				}
 		}
 		return $mensaje;

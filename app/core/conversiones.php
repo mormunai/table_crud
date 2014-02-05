@@ -116,11 +116,16 @@ class Conversiones {
 	public static function fecha_hora_mysql_a_es($fecha_hora_mysql) {
 		
 		$patron_fecha_hora="/^\d{4}\-\d{1,2}\-\d{1,2} \d{2}\:\d{2}\:\d{2}$/";
+		$patron_fecha="/^\d{4}\-\d{1,2}\-\d{1,2}$/";
 		if (preg_match($patron_fecha_hora, $fecha_hora_mysql)) {
 			// Creamos un objeto de la clase \DateTime que nos servirá para la conversión.
 			$fecha = \DateTime::createFromFormat("Y-m-d H:i:s", $fecha_hora_mysql);
 			return($fecha->format("d/m/Y H:i:s"));
-		}
+		} elseif (preg_match($patron_fecha, $fecha_hora_mysql)) {
+                        // Creamos un objeto de la clase \DateTime que nos servirá para la conversión.
+                    $fecha = \DateTime::createFromFormat("Y-m-d", $fecha_hora_mysql);
+                    return ($fecha->format("d/m/Y"));
+                }
 		else
 			return $fecha_hora_mysql;
 		
@@ -136,11 +141,16 @@ class Conversiones {
 	public static function fecha_hora_es_a_mysql($fecha_hora_es) {
 		
 		$patron_fecha_hora="/^\d{1,2}\/\d{1,2}\/\d{4} \d{2}\:\d{2}\:\d{2}$/";
+		$patron_fecha="/^\d{1,2}\/\d{1,2}\/\d{4}$/";
 		if (preg_match($patron_fecha_hora, $fecha_hora_es)) {
 			// Creamos un objeto de la clase \DateTime que nos servirá para la conversión.
 			$fecha = \DateTime::createFromFormat("d/m/Y H:i:s", $fecha_hora_es);
 			return($fecha->format("Y-m-d H:i:s"));
-		}
+		} elseif (preg_match($patron_fecha, $fecha_hora_es)) {
+                        // Creamos un objeto de la clase \DataTime que nos servirá para la conversión.
+                    $fecha = \DateTime::createFromFormat("d/m/Y", $fecha_hora_es);
+                    return $fecha->format("Y-m-d");
+                }
 		else
 			return $fecha_hora_es;
 		

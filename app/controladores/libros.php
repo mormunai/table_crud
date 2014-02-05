@@ -27,7 +27,7 @@ class libros extends \core\Controlador {
 //        \core\HTTP_Respuesta::enviar($http_body);
         
         $clausulas = array(
-				'columnas' => 'titulo, autor, genero',
+				'columnas' => '',
 				'where' => '',
 				'group_by' => '',
 				'having' => '',
