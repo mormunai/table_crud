@@ -1,0 +1,27 @@
+key|text
+plantilla_titulo_cabecera|Index
+plantilla_titulo_cabecera_libros|Books
+plantilla_español|Spanish
+plantilla_ingles|English
+plantilla_creada|Page made by: 
+plantilla_contacto|Contact: 
+plantilla_info|This website is a practice for DWES
+plantilla_volver|Back to homepage
+inicio_index_titulo|This is the practice 5 of DWES
+inicio_index_parrafo|Here we used the model-view-controller (MVC) to organize the project.<br/>In the homepage (current page) we can find an icon that will take us to the BOOKS section.<br
+libros_index_titulo|My last books read
+libros_form_anexar_titulo|new book details
+libros_form_modificar_titulo|Data book to modify
+libros_form_eliminar_titulo|Are you sure you want to remove this book?
+libros_titulo|Title
+libros_autor|Author
+libros_comentario|Comments
+libros_acciones|Actions
+libros_boton_anexar|Append a book
+libros_boton_modificar|Modify
+libros_boton_eliminar|Delete
+libros_boton_aceptar|Apply
+libros_boton_cancelar|Cancel
+validacion_error_requerido|This entry is obligatory can not be empty.
+validacion_error_texto|Must be a string with one character at least.
+validacion_error_punto_y_coma|Can not use ';'.

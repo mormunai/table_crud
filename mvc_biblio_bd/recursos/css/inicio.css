@@ -1,0 +1,227 @@
+/* Fondo */
+body {
+    background: url(../imagenes/fondos/inicio.jpg) no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+/* Estilo de la cabecera */
+#cabecera {
+    margin-top: 2%;
+    margin-left: -8px;    
+    margin-right: -8px; 
+    padding: 0.01%;
+    text-align: center;
+}
+#titulo_cabecera {				
+    text-align: center;
+    font-family: Forte;
+    font-size: 54px;
+    color: black;
+    text-shadow: 3px 3px rgb(255, 255, 255);
+    font-variant: small-caps;
+    text-transform: capitalize;
+    padding-left: 17%;
+}
+#tabla_cabecera {
+    width: 100%;
+}
+#td_titulo_tabla_cabecera {
+    width: 87%;
+}
+.td_lang_tabla_cabecera {
+    text-align: left;
+    color: white;
+}
+
+    /* Apartado de los idiomas */
+    .enlace_idioma {
+        font-size: 14px;
+        font-family: Calibri;    
+        cursor: pointer;
+    }
+    .enlace_idioma:link {
+        color: white;
+        text-decoration: none;
+        font-style: normal;
+    }
+    .enlace_idioma:visited {
+        color: white;
+        text-decoration: none;
+        font-style: normal;
+    }
+    .enlace_idioma:hover {
+        color: white;
+        font-weight: bold;
+    }
+    .icono_idioma {
+        vertical-align: middle;
+        padding-right: 12px;
+    }
+
+/* Estilo del contenido de la página */
+    /* Estilo del contenido de la página */
+    #view_content {
+        margin: 3%;
+        font-size: 14px;
+        font-family: Calibri;
+        text-align: center;
+    }
+    /* inicio/index */
+    #inicio {
+        border-radius: 100%;
+        margin: 5% 15%;
+        font-size: 14px;
+        font-family: Calibri;
+        text-align: center;
+        padding: 2.5% 5%;
+    }
+    #enlace_libros {
+        background: url(../imagenes/generales/enlace_libros.png) no-repeat;
+        background-size: 200px 200px;
+        width: 200px;
+        height: 200px;
+        border-radius: 100px;
+        margin-left: 35%;
+    }
+    #enlace_libros:hover {
+        background: url(../imagenes/generales/enlace_libros_hover.png) no-repeat;
+        background-size: 200px 200px;
+        cursor: pointer;
+    }
+    #a_enlace_libros {
+        padding-bottom: 175px;
+        padding-right: 100px;
+        padding-left: 100px;
+    }
+
+    /* libros/index */
+    #tabla_index {
+        border-collapse: collapse;
+    }
+    #tabla_index td {
+        width: 1%;
+        color: white;
+        text-align: center;
+    }
+    #tr_head {
+        width: 1%;
+        height: 40px;
+        background-color: rgba(0, 0, 0, 0.85);
+        color: white;
+        font-size: 18px;
+        font-variant: small-caps;
+    }
+    .tr_par {
+        background-color: rgba(0, 0, 0, 0.70);
+        height: 90px;
+    }
+    .tr_impar {
+        background-color: rgba(0, 0, 0, 0.60);
+        height: 85px;
+    }
+    .icono_tabla {
+        vertical-align: middle;    
+        padding-right: 10px;
+        height: 20px;
+        width: 20px;
+    }
+    .enlace_form:link {
+        color: white;
+        text-decoration: none;
+        font-style: normal;
+    }
+    .enlace_form:visited {
+        color: white;
+        text-decoration: none;
+        font-style: normal;
+    }
+    .enlace_form:focus {
+        color: white;
+        text-decoration: none;
+    }
+    .enlace_form:hover {
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .enlace_form:active {
+        color: silver;
+        text-decoration: none;
+    }
+
+    /* libros/form_[...] */
+    .form {
+        text-align: justify;
+        padding-left: 30%;
+    }
+    .etiqueta {
+        font-size: 18px;       
+        font-weight: bold;        
+    }
+    .botones_form {
+        text-align: center;
+        margin-left: -50%;
+        padding: 20px;
+    }
+    .botones_form input {
+        height: 30px;
+        width: 90px;
+    }
+    .img_boton_form {
+        vertical-align: sub;
+    }
+    
+    /* comunes */
+    .titulo_seccion {        
+        font-variant: small-caps;
+        text-shadow: 2px 2px black;
+    }
+    
+/* Estilo del pie de página */
+#pie_pagina {
+    margin-bottom: 2%;
+    margin-left: -8px;    
+    margin-right: -8px; 
+    padding: 0.5%;
+    font: 12px open sans,sans-serif;
+    text-align: center;
+}
+
+    /* Estilos en el enlace del pie de página */
+    .enlace_pie:link {
+        color: white;
+        text-decoration: underline;
+        font-style: italic;
+    }
+    .enlace_pie:visited {
+        color: white;
+        text-decoration: none;
+    }
+    .enlace_pie:focus {
+        color: silver;
+        text-decoration: underline;
+    }
+    .enlace_pie:hover {
+        color: white;
+        font-weight: bold;
+    }
+    .enlace_pie:active {
+        color: white;
+        text-decoration: none;
+    }
+
+/* Estilo utilizado en el menú, el contenido y el pie de página */
+.transparente {
+    background-color: rgba(0, 0, 0, 0.80);
+    color: white;
+}
+.cursiva {
+    font-style: italic;
+}
+.icono {
+    vertical-align: middle;    
+    padding: 0px 10px;
+}

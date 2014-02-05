@@ -1,0 +1,16 @@
+/* Estilo general */
+body {
+    background: url(../imagenes/fondos/libros.jpg) no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+/* Título de la sección */ 
+#titulo_cabecera {				
+    text-shadow: 3px 3px rgb(180, 215, 180);
+}
+.titulo_seccion {        
+    text-shadow: 2px 2px rgb(180, 215, 180);
+}
