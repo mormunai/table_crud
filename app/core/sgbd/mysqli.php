@@ -11,7 +11,7 @@ class mysqli implements \core\sgbd\SQL_interface {
 	 * Variable usada para facilitar la ocultación del resultado de setencias de depuración.
 	 * @var boolean 
 	 */
-	private static $depuracion = true;
+	private static $depuracion = false;
 	
 	/**
 	 * Resource o Link que guarda la conexión con el SGBD
@@ -58,8 +58,9 @@ class mysqli implements \core\sgbd\SQL_interface {
 	 */
 	protected static $result;
 	
-	
-	/**
+	private static $codificacion;
+        
+        /**
 	 * Prevista para que se puedan instanciar las clases específica que se creen para manipular cada tabla en la carpeta app\datos\nombre_tabla.php
 	 * 
 	 * @param string $table
@@ -73,9 +74,11 @@ class mysqli implements \core\sgbd\SQL_interface {
 
 	
 	public static function connect() {
-		
+            
+            
 		self::$connection = mysqli_connect(\core\Configuracion::$db['server'], \core\Configuracion::$db['user'], \core\Configuracion::$db['password'],\core\Configuracion::$db['db_name']);
-		
+//		self::$connection = mysqli_connect('localhost', 'root', '', 'daw2');
+        
 		if ( ! self::$connection) {
 			throw new \Exception(__METHOD__.' Mysql: Could not connect: ' );
 		}
@@ -84,7 +87,10 @@ class mysqli implements \core\sgbd\SQL_interface {
 		
 		self::$db_name = \core\Configuracion::$db['db_name'];
 		
-		return self::$connection;
+                self::$codificacion = mysqli_set_charset(self::$connection, 'utf8');
+//                self::$codificacion = mysqli_set_charset('utf8');
+		
+                return self::$connection;
 		
 	}
 	
@@ -234,7 +240,7 @@ class mysqli implements \core\sgbd\SQL_interface {
 	
 	
 	
-	public static function insert_row( array $fila , $table=null) {
+	public static function insert_row( array &$fila , $table=null) {
 		
 		if (isset($fila['id']))
 			throw new \Exception(__METHOD__." Error: no pude insertarse la columna id.");
@@ -255,7 +261,7 @@ class mysqli implements \core\sgbd\SQL_interface {
 	
 	
 	
-	public static function insert(array $fila, $table=null) {
+	public static function insert(array &$fila, $table=null) {
 	
 		return self::insert_row($fila, $table);
 		
@@ -266,7 +272,7 @@ class mysqli implements \core\sgbd\SQL_interface {
 	
 	
 		
-	public static function update_row(array $fila , $table=null, $where=null) {
+	public static function update_row(array &$fila , $table=null, $where=null) {
 		
 		if ( ! isset($fila['id']) && ! strlen($where))
 			throw new \Exception(__METHOD__." Error: debe aportarse la id or \$where.");
@@ -293,7 +299,7 @@ class mysqli implements \core\sgbd\SQL_interface {
 	}
 	
 	
-	public static function update(array $fila , $table=null, $where=null) {
+	public static function update(array &$fila , $table=null, $where=null) {
 		
 		return self::update_row($fila, $table, $where);
 		
@@ -307,7 +313,7 @@ class mysqli implements \core\sgbd\SQL_interface {
 	
 	
 	
-	public static function delete_row(array $fila, $table = null, $where=null) {
+	public static function delete_row(array &$fila, $table = null, $where=null) {
 		
 		if ( ! isset($fila['id']))
 			throw new \Exception(__METHOD__." Error: debe aportarse la id.");
@@ -327,20 +333,11 @@ class mysqli implements \core\sgbd\SQL_interface {
 	
 	
 
-	/**
-	 * Borra filas.
-	 * Tiene prioridad la existencia de valor en el parámetro $where, depués la entrada $clausulas[where], y por último $clausulas[id].
-	 * 
-	 * @param array $clausulas default array() Ejemplos: array("id"=>3), array("where" => " rol = 'usuarios' ")
-	 * @param atring $table default null
-	 * @param string $where default null Ejemplo: " rol = 'usuarios' "
-	 * @return type
-	 * @throws \Exception
-	 */
+	
 	public static function delete( $clausulas = array(), $table = null, $where = null) {
 		
-		if ( ! isset($clausulas['id']) && ! isset($clausulas['where']) && ! strlen($where))
-			throw new \Exception(__METHOD__." Error: debe aportarse las entradas [id] o [where] en \$clausulas o el parámetro \$where.");
+		if ( ! isset($clausulas['id']) && ! strlen($where))
+			throw new \Exception(__METHOD__." Error: debe aportarse la id or \$where.");
 		
 		
 		if (is_string($clausulas) and is_array($table)) {
@@ -443,7 +440,7 @@ class mysqli implements \core\sgbd\SQL_interface {
 			start transaction;
 		";
 		
-		return self::execute($sql);
+		return execute($sql);
 		
 	}
 	
@@ -455,7 +452,7 @@ class mysqli implements \core\sgbd\SQL_interface {
 			commit;
 		";
 		
-		return self::execute($sql);
+		return execute($sql);
 		
 	}
 	
@@ -467,7 +464,7 @@ class mysqli implements \core\sgbd\SQL_interface {
 			rollback;
 		";
 		
-		return self::execute($sql);
+		return execute($sql);
 		
 	}
 	

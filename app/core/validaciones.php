@@ -222,7 +222,7 @@ class Validaciones  {
 	 */
 	public static function evitar_inyeccion_sql($input)
 	{
-		$input = \core\sgbd\bd::escape_string($input);
+//		$input = \core\sgbd\bd::escape_string($input);
 		// si $datos[$key]==false hay error en la aplicación de los caracteres de escape
 		preg_replace (
 			array('/insert/i' , '/select/i' ,'/update/i' ,'/delete/i' ,'/script/i' ,'/truncate/i','/union/i', '/\;/i'   )
@@ -241,7 +241,7 @@ class Validaciones  {
 		$mensaje = null; // Ningún error de validación
 		
 		if ( $cadena == null || strlen($cadena) < 1) {
-			$mensaje = "Esta entrada es obligatoria, no puede quedarse vacía.";
+			$mensaje = \core\Idioma::text("validacion_error_requerido", "plantilla");
 		}
 		
 		return $mensaje;
@@ -257,7 +257,7 @@ class Validaciones  {
 	public static function errores_texto($cadena=null) {
 		$mensaje = null;
 		if ($cadena != null && ! strlen($cadena)) {
-				$mensaje = "-php- Debe ser una cadena con un carácter como mínimo.";
+				$mensaje = "-php- ".\core\Idioma::text("validacion_error_texto", "plantilla");
 		}
 		return $mensaje;
 	}
@@ -269,7 +269,7 @@ class Validaciones  {
 		if ($cadena != null && strlen($cadena)) {
 				$patron = "/\;/";
 				if (preg_match($patron, $cadena)) {
-					$mensaje = "No se puede utilizar el ; .";
+					$mensaje = \core\Idioma::text("validacion_error_punto_y_coma", "plantilla");
 				}
 		}
 		return $mensaje;
@@ -319,34 +319,6 @@ class Validaciones  {
 		return $mensaje ;		
 	}
 
-	
-	
-	/**
-	 * Cadena representa una fecha y horas válidas en españa, con el formato dd/mm/aaaa hh:mm:ss
-	 * @param type $cadena
-	 * @return boolean
-	 */
-	public static function errores_fecha_hora($cadena){
-		$mensaje="";
-		if ($cadena!=null) {
-			$cadena=str_replace(array(' ', '-', '.', ',', ':'), '/', $cadena);
-			/* Para que sea mas facil y ahorrar comprobaciones cambiamos por / todos los signos que pone en el array, de esta manera la fecha siempre sera del tipo dd/mm/aaaa */
-			$patron_fecha_hora="/^\d{1,2}\/\d{1,2}\/\d{4}\/\d{2}\/\d{2}\/\d{2}/";
-			$encuentros=array();
-			if (preg_match($patron_fecha_hora, $cadena, $encuentros)) {
-				$numeros = explode('/', $encuentros[0]); //con explode convertimos en subcadenas el array cadena, cada subcadena esta formada por la division que hace el caracter.
-				if (!mktime ($numeros[3], $numeros[4], $numeros[5], $numeros[1], $numeros[0], $numeros[2]))
-					$mensaje="La fecha  {$encuentros[0]} es errónea . Revísela. ";
-
-			}
-			else
-				$mensaje="La fecha es errónea. Revísela. ";
-		}
-		if ($mensaje=="") $mensaje=false;
-		return $mensaje;
-	}
-
-	
 	
 
 	/**

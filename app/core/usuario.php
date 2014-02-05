@@ -7,7 +7,7 @@ class Usuario extends \core\Clase_Base {
 	
 	public static $id;
 	public static $login = 'anonimo';
-	private static $permisos = array();
+	public static $permisos = array();
 	public static $sesion_segundos_duracion = 0;
 	public static $sesion_segundos_inactividad = 0;
 	
@@ -34,11 +34,10 @@ class Usuario extends \core\Clase_Base {
 		if (isset($_SESSION['usuario']['permisos'])) {
 			self::$permisos = $_SESSION['usuario']['permisos'];
 		}
-		else {
-			self::recuperar_permisos_bd(self::$login);
-		}
+//		else {
+//			self::recuperar_permisos_bd(self::$login);
+//		}
 		
-//		var_dump(self::$permisos);
 		
 		if (isset($_SESSION['usuario']['contador_paginas_visitadas']))
 			$_SESSION['usuario']['contador_paginas_visitadas']++;
@@ -71,7 +70,7 @@ class Usuario extends \core\Clase_Base {
 		$_SESSION["usuario"]["sesion_inicio"] = $_SERVER["REQUEST_TIME"];
 		$_SESSION["usuario"]["REMOTE_ADDR"] = $_SERVER["REMOTE_ADDR"];
 		
-		self::recuperar_permisos_bd(self::$login);
+//		self::recuperar_permisos_bd(self::$login);
 		self::sesion_control_tiempos();
 		
 		if (self::$depuracion) {
@@ -92,25 +91,17 @@ class Usuario extends \core\Clase_Base {
 	
 	
 	
-	private static function recuperar_permisos_bd($login) {
-		
-		self::$permisos = \modelos\usuarios::permisos_usuario($login);
-		$_SESSION['usuario']['permisos'] = self::$permisos;
-		
-	}
+//	private static function recuperar_permisos_bd($login) {
+//		
+//		self::$permisos = \modelos\usuarios::permisos_usuario($login);
+//		$_SESSION['usuario']['permisos'] = self::$permisos;
+//		
+//	}
 	
 	
-	public static function tiene_permiso($controlador = "inicio", $metodo = 'index') {
-		
-		if ( ! \core\Configuracion::$control_acceso_recursos) {
-			return true;
-		}
+	public static function tiene_permiso($controlador, $metodo = 'index') {
 		
 		$autorizado = false;
-		
-		// La siguiente línea hace que el usuario que tenga asignado el método form_insertar
-		// también pueda acceder al método form_insertar_validar
-		$metodo = preg_replace("/_validar|validar_/", "", $metodo);
 				
 		// El usuario tiene acceo a todos los recursos
 		if (isset(self::$permisos['*']['*']))
@@ -123,7 +114,6 @@ class Usuario extends \core\Clase_Base {
 			$autorizado = true;	
 		
 		return $autorizado;
-		
 	}
 	
 	

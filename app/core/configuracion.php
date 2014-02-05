@@ -15,21 +15,15 @@ class Configuracion {
 	
 	public static $url_amigable = true;
 	
-	// Control acceso a recursos
-	public static $control_acceso_recursos = true;
 	
-	public static $display_errors = "on"; // Valores posibles "on" "off""
-
+	
 	public static $idioma_por_defecto = "es";
 	public static $idioma_seleccionado;
 	public static $idiomas_reconocidos = "es|en|fr";
 	
-	public static $https_login = false;
-	public static $form_login_catcha = false;
-	public static $form_insertar_externo_catcha = false;
 	
-	public static $email_info = "info@esmvcphp.es";
-	public static $email_noreply = "noreply@esmvcphp.es";
+	public static $email_info = "info@servicor.com";
+	public static $email_noreply = "noreply@servicor.com";
 	
 	/**
 	 *
@@ -46,25 +40,24 @@ class Configuracion {
 	);
 	
 	
-	// localhost
+
 	public static $db = array(
 		'server'   => 'localhost',
-		'user'     => 'daw2_user',
-		'password' => 'daw2_user',
-		'db_name'  => 'daw2',
-		'prefix_'  => 'daw2_'
+		'user'     => 'root',
+		'password' => '',
+		'db_name'  => 'mvc',
+		'prefix_'  => 'mvc_'
 	);
 	
-
-	// hostinger
-//	public static $db = array(
-//		'server'   => 'mysql.hostinger.es',
-//		'user'     => 'u452950836_daw2',
-//		'password' => 'u452950836_daw2',
-//		'db_name'   => 'u452950836_daw2',
-//		'prefix_'  => 'daw2_'
-//	);
-	
+	/*
+	public static $db = array(
+		'server'   => 'sql210.byethost8.com',
+		'user'     => 'b8_12128753',
+		'password' => '**************',
+		'dbname'   => 'b8_12128753_esmvcphp',
+		'prefix_'  => 'foro_'
+	);
+	*/
 	/**
 	 * Define array llamado recursos_y_suariosla con la definición de todos los permisos de acceso a los recursos de la aplicación.
 	 * * Recursos:

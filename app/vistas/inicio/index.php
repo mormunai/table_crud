@@ -1,5 +1,12 @@
-<div>
-	<p>Bienvenido a la aplicación desarrollada en PHP-POO con patrón MVC.</p>
-	<a href="docs/Modelo_Vista_Controlador_v05.pdf" target="_blank"><img src='<?php echo URL_ROOT; ?>recursos/imagenes/Arquitectura_MVC.png' alt='Arquitectura_MVC.png' title="Representación del patrón MVC, por el profesor Jesús María de Quevedo Tomé"  height="400px" /></a>
-	<a href="http://dreamztech.com/blog/new-features-in-asp-net-mvc-4/" target="_blank"  title="Imagen de patrón MVC de http://dreamztech.com/blog/new-features-in-asp-net-mvc-4/"><img src="<?php echo URL_ROOT; ?>recursos/imagenes/MVC_imagen2.png" alt="MVC_imagen2.png"  height="400px" /></a>
+<div id="inicio" class="transparente">
+    <h2 id="titulo_inicio_index" class="titulo_seccion"><?php echo \core\Idioma::text("inicio_index_titulo", "plantilla"); ?></h2>
+    <p>
+        <?php echo \core\Idioma::text("inicio_index_parrafo", "plantilla"); ?>
+        <br/>
+    </p>
+    <div id="enlace_libros">
+        <a id="a_enlace_libros" 
+           href="<?php echo \core\URL::generar_sin_idioma("libros/index"); ?>" class="enlace_pie">
+        </a>
+    </div>
 </div>

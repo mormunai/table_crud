@@ -1,5 +1,7 @@
-título;autor;comentario
-Título A;Autor de A;Comentario de A
-Título B;Autor de B;Comentario de B
-Título C;Autor de c;Comentario de C
-Título D;Autor de D;Comentario de D
+﻿título;autor;comentario
+Los juegos del hambre;Suzanne Collins;Novela de aventura y ciencia fincción
+La Celestina;Fernando de Rojas;Obra clásica
+Don Quijote de la Mancha;Cervantes;
+Los pilares de la Tierra;Ken Follet;Novela histórica
+Romeo y Julieta;William Shakespeare;Obra de teatro
+El nombre del viento;Patrick Rothfuss;Crónica del asesino de reyes (I)

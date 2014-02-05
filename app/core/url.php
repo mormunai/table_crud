@@ -7,16 +7,15 @@ class URL {
 	/**
 	 * Retorna una URI con el esquema http
 	 * <br />La url no contiene el nombre del fichero index.php
-	 * <br />Ejemplo de URL generada: http://www.servidor.com/?query_string  http://www.servidor.com/aplicacion/?query_string
-	 * 
-	 * No incluye parámetros de administrator ni language
+	 * <br />Ejemplo de URL generada: http://www.servidor.com/?query_string
 	 
 	 * @param string $query_string
 	 * @return string
 	 */
 	public static function http($query_string = '') {
 		
-		if ( strlen($query_string) && preg_match("/=/", $query_string) && ! preg_match("/^\?.*/", $query_string))
+		$patron = "/^\?.*/";
+		if ( !preg_match($patron, $query_string))
 			$query_string .= "?$query_string";
 		
 		$url = "http://".$_SERVER['SERVER_NAME'].str_replace('index.php', '', $_SERVER['SCRIPT_NAME']);
@@ -29,16 +28,19 @@ class URL {
 	/**
 	 * Retorna una URL que requiere protocolo https partiendo de la que recibió la petición para ejecutar el index.php.
 	 * <br />La url no contiene el nombre del fichero index.php
-	 * <br />Ejemplo de URL generada: https://www.servidor.com/?query_string  https://www.servidor.com/aplicacion/?query_string
-	 * 
-	 * No incluye parámetros de administrator ni language
-	 * 
+	 * <br />Ejemplo de URL generada: https://www.servidor.com/?query_string
 	 * @param string $query_string
 	 * @return string
 	 */
 	public static function https($query_string = '') {
 		
-		return(str_replace("http", "https", self::http($query_string)));
+		$patron = "/^\?.*/";
+		if ( !preg_match($patron, $query_string))
+			$query_string .= "?$query_string";
+		
+		
+		$carpeta = str_replace('index.php', '',$_SERVER['SCRIPT_NAME']);
+		return "https://{$_SERVER['HTTP_HOST']}$carpeta$query_string";
 		
 	}
 	
@@ -72,7 +74,7 @@ class URL {
 			
 			}
 			
-			return URL_ROOT.((\core\Configuracion::$url_amigable) ? self::amigable($query_string, $withLang,$withLang) : self::query_string($query_string, $withLang, $withLang));
+			return URL_ROOT.((\core\Configuracion::$url_amigable) ? self::amigable($query_string, $withLang) : self::query_string($query_string, $withLang));
 
 	}
 		
@@ -80,28 +82,22 @@ class URL {
 	
 	
 	
-	static function http_generar($query_string = array(), $withLang = true, $withLang = true) {
+	static function http_generar($query_string = array(), $withLang = true) {
 		
-		return self::generar($query_string, $withLang, $withLang);
+		return self::generar($query_string, $withLang);
 		
 	}
 	
 	
 	
-	static function https_generar($query_string = array(), $withLang = true, $withLang = true) {
+	static function https_generar($query_string = array(), $withLang = true) {
 		
-		$url = self::generar($query_string, $withLang, $withLang);
+		$url = self::generar($query_string, $withLang);
 		return str_replace("http:", "https:", $url);
 		
 	}
 	
 	
-	/**
-	 * Genera una url absoluta que no incluye administrator ni idioma, con esquema http.
-	 * 
-	 * @param string $query_string
-	 * @return string
-	 */
 	static function http_root($query_string = array()) {
 		
 		return self::generar($query_string, false, false);
@@ -109,12 +105,7 @@ class URL {
 	}
 	
 	
-	/**
-	 * Genera una url absoluta que no incluye administrator ni idioma, con esquema https.
-	 * 
-	 * @param string $query_string
-	 * @return string
-	 */
+	
 	static function https_root($query_string = array()) {
 		
 		$url = self::generar($query_string, false, false);
@@ -124,28 +115,19 @@ class URL {
 	
 	
 	
-
-	/**
-	 * Genera una url absoluta con administrator e idioma, con esquema http.
-	 * 
-	 * @param string $query_string
-	 * @return string
-	 */
+	
+	
+	
 	static function generar_con_idioma($query_string = array()) {
 		
-		return self::generar($query_string, true, true);
+		return self::generar($query_string, true);
 		
 	}
 
-	/**
-	 * Genera una url absoluta con administrator y sin idioma, con esquema http.
-	 * 
-	 * @param string $query_string
-	 * @return string
-	 */
+	
 	static function generar_sin_idioma($query_string = array()) {
 		
-		return self::generar($query_string, false, true);
+		return self::generar($query_string, false);
 		
 	}
 	
@@ -156,26 +138,17 @@ class URL {
 	 * @param array $query_string array("dato1", "dato2"[,...])
 	 * @return string URL con formato ?p1=dato1&p2=dato2[&...]
 	 */
-	private static function query_string(array $query_string = null, $withLang = true, $administrator = true) {
+	private static function query_string(array $query_string = null, $withLang = true) {
 
 		$url = "?";
-		
-		if ($administrator && isset($_GET["administrator"])) {
-			$url .= "administrator=";
-		}
-		
-		if ($withLang && \core\Configuracion::$idioma_seleccionado && \core\Configuracion::$idioma_seleccionado != \core\Configuracion::$idioma_por_defecto) {
-			$url .= (strlen($url) == 1 ? "" : "&")."lang=".\core\Configuracion::$idioma_seleccionado;
-		}
-		
 		foreach ($query_string as $key => $value) {
-			$url .= (strlen($url) == 1 ? "" : "&")."p".($key+1)."=$value";
-			
+			$url .= "p".($key+1)."=$value";
+			if ($key < count($query_string)-1 )  {
+				$url .= "&";
+			}
 		}
-		
-		// Si la logitud de la url es 1 es que solo tiene el caracter ?, y por tanto lo borramos
-		if (strlen($url) ==1) {
-			$url = "";
+		if ($withLang && \core\Configuracion::$idioma_seleccionado && \core\Configuracion::$idioma_seleccionado != \core\Configuracion::$idioma_por_defecto) {
+			$url .= "&lang=".\core\Configuracion::$idioma_seleccionado;
 		}
 
 		return $url;
@@ -209,51 +182,5 @@ class URL {
 	
 	
 	
-	
-	/**
-	 * Registra en el array $_SESSION la URL actual y la anterior y la candidata 
-	 * para el botón volver o cancelar
-	 */
-	public static function registrar() {
-		
-		$_SESSION["url"]["actual"] =  (isset($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME']:($_SERVER['SERVER_PORT'] == 80 ? "http" : "https")) . "://" . $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
-		$_SESSION["url"]["anterior"] =  (isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : URL_ROOT);
-		
-		if ( ! isset($_SESSION["url"]["btn_volver"])) {
-			$_SESSION["url"]["btn_volver"] = URL_ROOT;
-		}
-		// Solo se memoriza la url anterior si no es de un formulario.
-		if ( ! preg_match("/form/", $_SESSION["url"]["anterior"])) {
-			$_SESSION["url"]["btn_volver"] =  $_SESSION["url"]["anterior"] ;
-		}
-		
-		if ($_SESSION["url"]["actual"] == $_SESSION["url"]["anterior"]) {
-			$_SESSION["url"]["btn_volver"] =  URL_ROOT;
-		}
-		
-		
-	}
-	
-	
-	/**
-	 * Devuelve una URL que sea recargable, es decir, que no sea formulario ni validación de formularo
-	 * 
-	 * @return string URL
-	 */
-	public static function btn_volver() {
-		
-		return self::url_btn_volver();
-		
-	}
-	
-	/**
-	 * Devuelve una URL que sea recargable, es decir, que no sea formulario ni validación de formularo
-	 * 
-	 * @return string URL
-	 */
-	public static function url_btn_volver() {
-		
-		return $_SESSION["url"]["btn_volver"];
-		
-	}
+			
 }
