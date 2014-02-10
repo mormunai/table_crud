@@ -5,28 +5,17 @@ namespace controladores;
 class libros extends \core\Controlador {
 
     /**
-     * ?menu=libros | /libros/index
+     * url -> ?menu=libros | /libros/index
+     * 
      * Esta función pasa el contenido/los datos para generar la plantilla básica (index)
      * de la sección de libros
      * 
-     * @param array $datos
+     * @param array $datos -> Es el array que contiene los datos necesarios para generar los contenidos de la web
      * @author Aída Morillas Muñoz (mormunai)
      * 
      */
     public function index(array $datos = array()) {
-        /* Código jequeto
-         * ---------------------------------------------------------------------------------
-         * $clausulas['order_by'] = 'nombre';
-          $datos["filas"] = \modelos\Datos_SQL::table("articulos")->select( $clausulas ); // Recupera todas las filas ordenadas
-          $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
-          $http_body = \core\Vista_Plantilla::generar('plantilla_principal', $datos);
-          \core\HTTP_Respuesta::enviar($http_body);
-         * -----------------------------------------------------------------------------------
-         */
-//        $datos['values'] = \modelos\Libros_En_Fichero::get_libros();
-//        $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos, true);
-//        $http_body = \core\Vista_Plantilla::generar('plantilla', $datos, true);
-//        \core\HTTP_Respuesta::enviar($http_body);
+        //este array contiene las clausulas que utilizaremos para hacer el select en la BD
         $clausulas = array(
             'columnas' => '',
             'where' => '',
@@ -34,40 +23,54 @@ class libros extends \core\Controlador {
             'having' => '',
             'order_by' => 'titulo'
         );
+        
+        //seleccionamos todos los libros de nuestra tabla para mostrarlos
         $datos['values'] = \modelos\Datos_SQL::tabla("libros")->select($clausulas);
+        
+        //generamos la vista
         $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
         $http_body = \core\Vista_Plantilla::generar('plantilla', $datos);
         \core\HTTP_Respuesta::enviar($http_body);
     }
 
     /**
-     * ?menu=libros&seccion=form_anexar
+     * url -> ?menu=libros&seccion=form_anexar | /libros/form_anexar
+     * 
      * Esta función pasa el contenido/los datos para abrir la plantilla 
-     * del formulario para anexar un nuevo libro
-     * @param array $datos
+     * del formulario para insertar un nuevo libro en la BD
+     * 
+     * @param array $datos -> Es el array que contiene los datos necesarios para generar los contenidos de la web
      * @author Aída Morillas Muñoz (mormunai)
      */
     public function form_anexar(array $datos = array()) {
 
-        /**
-         * $clausulas['order_by'] = " nombre ";
-          $datos['categorias'] = \modelos\Datos_SQL::table("categorias")->select($clausulas);
-
-          $datos['view_content'] = \core\Vista::generar(__FUNCTION__, $datos);
-          $http_body = \core\Vista_Plantilla::generar('plantilla_principal', $datos);
-          \core\HTTP_Respuesta::enviar($http_body);
-         */
+        //generamos el índice 'values' en el array $datos ya que nos será necesario en la vista
         $datos["values"] = array(
             "titulo" => "",
             "autor" => "",
             "fecha_lanzamiento" => "",
             "genero" => "",
             "precio" => "");
+        
+        //generamos la vista
         $datos["view_content"] = \core\Vista::generar(__FUNCTION__, $datos);
         $http_body = \core\Vista_Plantilla::generar("plantilla", $datos);
         \core\HTTP_Respuesta::enviar($http_body);
     }
 
+    /**
+     * Este método será llamado cuando el usuario haya pulsado el boton 'submit' del formulario anexar
+     * 
+     * Se encargará de realizar la comprobación de los datos que ha introducido el usuario son válidos
+     * y de que no le faltan datos por introducir.
+     * 
+     * Si el todos los datos son correctos, validará el formulario e insertará los datos en la BD.
+     * Si se produce algún error en la validación se devolverá al usuario al formulario de insertar
+     * y se le comunicarán los errores para que los corrija.
+     * 
+     * @param array $datos -> Es el array que contiene los datos necesarios para generar los contenidos de la web
+     * @author Aída Morillas Muñoz (mormunai)
+     */
     public function form_anexar_validar(array $datos = array()) {
         
         $validaciones = array(
@@ -92,7 +95,15 @@ class libros extends \core\Controlador {
         }
     }
     
-
+    /**
+     * url -> ?menu=libros&seccion=form_modificar | /libros/form_modificar
+     * 
+     * Esta función pasa el contenido/los datos para abrir la plantilla 
+     * del formulario para modificar los datos de un nuevo libro de la BD
+     * 
+     * @param array $datos -> Es el array que contiene los datos necesarios para generar los contenidos de la web
+     * @author Aída Morillas Muñoz (mormunai)
+     */
     public function form_modificar(array $datos = array()) {
 
         $id = \core\HTTP_Requerimiento::post("id");
@@ -115,6 +126,19 @@ class libros extends \core\Controlador {
         
     }
 
+    /**
+     * Este método será llamado cuando el usuario haya pulsado el boton 'submit' del formulario modificar
+     * 
+     * Se encargará de realizar la comprobación de los datos que ha introducido el usuario son válidos
+     * y de que no le faltan datos por introducir.
+     * 
+     * Si el todos los datos son correctos, validará el formulario y modificará los datos en la BD.
+     * Si se produce algún error en la validación se devolverá al usuario al formulario de modificar
+     * y se le comunicarán los errores para que los corrija.
+     * 
+     * @param array $datos -> Es el array que contiene los datos necesarios para generar los contenidos de la web
+     * @author Aída Morillas Muñoz (mormunai)
+     */
     public function form_modificar_validar(array $datos = array()) {
 
         $validaciones = array(
@@ -142,6 +166,15 @@ class libros extends \core\Controlador {
         }
     }
 
+    /**
+     * url -> ?menu=libros&seccion=form_eliminar | /libros/form_eliminar
+     * 
+     * Esta función pasa el contenido/los datos para abrir la plantilla 
+     * del formulario para confirmar la eliminación de un libro de la BD
+     * 
+     * @param array $datos -> Es el array que contiene los datos necesarios para generar los contenidos de la web
+     * @author Aída Morillas Muñoz (mormunai)
+     */
     public function form_eliminar(array $datos = array()) {
 
         $id = \core\HTTP_Requerimiento::post("id");
@@ -164,6 +197,14 @@ class libros extends \core\Controlador {
         \core\HTTP_Respuesta::enviar($http_body);
     }
 
+    /**
+     * Este método será llamado cuando el usuario haya pulsado el boton 'submit' del formulario anexar
+     * 
+     * Se pasará directamente a eliminar los datos de la BD
+     * 
+     * @param array $datos -> Es el array que contiene los datos necesarios para generar los contenidos de la web
+     * @author Aída Morillas Muñoz (mormunai)
+     */
     public function form_eliminar_validar(array $datos = array()) {
         
         $datos['values']['id'] = \core\HTTP_Requerimiento::post('id');

@@ -19,26 +19,13 @@
         </thead>
         <tbody>
             <?php
-            /*
-              for ($i = 0; $i < count($datos['libros']); $i++) {
-
-              echo "<tr>
-              <td>{$datos['libros'][$i]['titulo']}</td>
-              <td>{$datos['libros'][$i]['autor']}</td>
-              <td>{$datos['libros'][$i]['genero']}</td>
-              </tr>";
-              }
-             */
-            $boolean_par;
             $class;
             foreach ($datos['values'] as $id => $libro) {
                 $uri = \core\URL::http_generar(array("libros", "form_modificar", $id));
                 if ($id % 2 == 0) {
                     $class = 'tr_par';
-                    $boolean_par = true;
                 } else {
                     $class = 'tr_impar';
-                    $boolean_par = false;
                 }
                 echo
                     "<tr class='" . $class . "'>
@@ -60,27 +47,16 @@
         </tbody>
         <tfoot>
             <?php
-            if ($boolean_par) {
+            $class == 'tr_impar' ? $class = 'tr_par' : $class = 'tr_impar';
                 echo
                 '<tr>
-                        <td id="td_anexar" colspan="6" class="tr_impar">
+                        <td id="td_anexar" colspan="6" class="'.$class.'">
                             <a href="' . \core\URL::generar_sin_idioma("libros/form_anexar") . '" class="enlace_form" onclick="">
                                 <img class="icono" src="' . URL_ROOT . 'recursos/imagenes/generales/create.png" alt="Anexar">
                                 Anexar un nuevo libro
                             </a>
                         </td>
                     </tr>';
-            } else {
-                echo
-                '<tr>
-                        <td id="td_anexar" colspan="6" class="tr_par">
-                            <a href="' . \core\URL::generar_sin_idioma("libros/form_anexar") . '" class="enlace_form">
-                                <img class="icono" src="' . URL_ROOT . 'recursos/imagenes/generales/create.png" alt="Anexar">
-                                Anexar un nuevo libro
-                            </a>
-                        </td>
-                    </tr>';
-            }
             ?>
         </tfoot>
 
