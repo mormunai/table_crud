@@ -11,8 +11,8 @@
             <tr id="tr_head">
                 <th>Título</th>
                 <th>Autor</th>
-                <th>Género</th>
                 <th>Fecha lanzamiento</th>
+                <th>Género</th>
                 <th>Precio</th>
                 <th>Acciones</th>
             </tr>
@@ -44,19 +44,15 @@
                     "<tr class='" . $class . "'>
                         <td>{$libro['titulo']}</td>
                         <td>{$libro['autor']}</td>
-                        <td>{$libro['genero']}</td>
                         <td>".  \core\Conversiones::fecha_hora_mysql_a_es($libro['fecha_lanzamiento'])."</td>
+                        <td>{$libro['genero']}</td>
                         <td>".  \core\Conversiones::decimal_punto_a_coma($libro['precio'])." €</td>
                         <td>
-                            <a href='" . \core\URL::generar_sin_idioma('libros/form_modificar') . "$id' class='enlace_form'>
-                                <img class='icono_tabla' src='" . URL_ROOT . "recursos/imagenes/generales/modify.png' alt='Modificar'>
-                                Modificar
-                            </a> 
+                            <img class='icono_tabla' src='" . URL_ROOT . "recursos/imagenes/generales/modify.png' alt='Modificar'>
+                            ".\core\HTML_Tag::a_boton_onclick('enlace_form', array('libros', 'form_modificar', $libro['id']), 'Modificar')."
                             <br/><br/>
-                            <a href='" . \core\URL::generar_sin_idioma('libros/form_eliminar') . "$id' class='enlace_form'>
-                                <img class='icono_tabla' src='" . URL_ROOT . "recursos/imagenes/generales/erase.png' alt='Eliminar'>
-                                Eliminar
-                            </a>
+                            <img class='icono_tabla' src='" . URL_ROOT . "recursos/imagenes/generales/erase.png' alt='Eliminar'>
+                            ".\core\HTML_Tag::a_boton_onclick('enlace_form', array('libros', 'form_eliminar', $libro['id']), 'Eliminar')."
                         </td>
                     </tr>";
             }

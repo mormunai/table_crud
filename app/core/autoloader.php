@@ -56,10 +56,10 @@ class Autoloader {
 			$fichero_clase = PATH_APP.$class_name.".php";
 		}
 		
-		if ( ! file_exists($fichero_clase) ) {
-			// Buscamos en las clases de la librería de dompdf
-			$fichero_clase = strtolower(PATH_APP."lib/php/dompdf/include/$class_name.cls.php");
-		}
+//		if ( ! file_exists($fichero_clase) ) {
+//			// Buscamos en las clases de la librería de dompdf
+//			$fichero_clase = strtolower(PATH_APP."lib/php/dompdf/include/$class_name.cls.php");
+//		}
 		
 		if ( file_exists($fichero_clase) ) {
 			

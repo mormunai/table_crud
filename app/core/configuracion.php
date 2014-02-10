@@ -7,7 +7,7 @@ class Configuracion {
 	
 	public static $metodo_por_defecto = 'index';
 	
-	public static $plantilla_por_defecto = 'plantilla_principal';
+	public static $plantilla_por_defecto = 'plantilla';
 	
 	public static $sesion_minutos_inactividad = 20; // Minutos
 	

@@ -26,7 +26,25 @@
 
 <!--        <script type="text/javascript" src="<?php echo URL_ROOT; ?>recursos/js/idiomas.js"></script>
         <script type="text/javascript" src="<?php echo URL_ROOT; ?>recursos/js/f_cookies_v06.js"></script>-->
-
+        <script type="text/javascript" src="<?php echo URL_ROOT; ?>recursos/js/general.js"/></script>
+        <script type="text/javascript" src="<?php echo URL_ROOT; ?>recursos/js/jquery/jquery-1.10.2.min.js"/></script>
+        
+        <script type="text/javascript" >
+            /**
+             * Envía una petición por post para ocultar parámetros a usuario y evitar que juegue con
+             * ellos modificando la URI mostrada .
+             * 
+             * @param string action
+             * @param strin id
+             * @returns {undefined}
+             */
+            function submit_post_request_form(action, id) {
+                $("#post_request_form").attr("action", action);
+                $("#id").attr("value", id);
+                $("#post_request_form").submit();
+                // alert("post_request_form.submit("+$("#post_request_form").attr("action")+" , "+$("#id").val()+")");
+            }
+        </script>
     </head>
 
     <body>
@@ -67,18 +85,18 @@
                 <br/><br/>
                 Contacto: 
                 <a href="mailto:aida.morillas.92@gmail.com" id="enlace_contacto" class="enlace_pie">
-                    <img class='icono' src='<?php echo URL_ROOT; ?>recursos/imagenes/generales/message.png' title='e-mail' alt="e-mail">                    
+                    <img class='icono' src='<?php echo URL_ROOT; ?>recursos/imagenes/generales/message.png' title='e-mail' alt="e-mail">
                 </a>
                 <br/><br/>
-                ::: Esta página es una práctica para el módulo de DWES - 06/02/2014 :::
+                ::: Esta página es una práctica para el módulo de DWES - 09/02/2014 :::
                 <br/>
                 <br/>
                 <?php
                 if (\core\Distribuidor::get_controlador_instanciado() != "inicio") {
                     echo '
-                        <button id="boton_volver_principal" onclick="window.location.assign(\''.\core\URL::generar_sin_idioma("inicio").'\');"                        
+                        <button id="boton_volver_principal" onclick="window.location.assign(\'' . \core\URL::generar_sin_idioma("inicio") . '\');"                        
                             title="Volver a inicio">
-                            <img src="'.URL_ROOT.'recursos/imagenes/generales/home.png" 
+                            <img src="' . URL_ROOT . 'recursos/imagenes/generales/home.png" 
                                 alt="Volver al inicio">                                    
                         </button> 
                     ';
